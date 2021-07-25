@@ -1,0 +1,6 @@
+---
+- name: Clone vault
+  git:
+    repo: git@github.com:vinikira/vault.git
+    dest: /Users/{{ lookup('env', 'USER') }}/.password-store
+    update: yes

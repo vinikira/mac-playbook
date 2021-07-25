@@ -1,0 +1,9 @@
+---
+- name: Syncthing
+  community.general.homebrew:
+    name: syncthing
+    state: present
+
+- name: Enable Syncthing as a service
+  shell: brew services start syncthing
+  ignore_errors: yes

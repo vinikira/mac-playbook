@@ -1,0 +1,43 @@
+---
+- name: CLI Packages
+  community.general.homebrew:
+    name:
+      - tmux
+      - pass
+      - bat
+      - wget
+      - htop
+      - aspell
+      - ripgrep
+      - fd
+      - pandoc
+      - gpg
+      - autoconf
+      - openssl
+      - wxmac
+      - jq
+      - libxml2
+      - cmake
+      - pgformatter
+      - pgcli
+    state: present
+
+- name: Cask Packages
+  community.general.homebrew_cask:
+    name: '{{ item }}'
+    state: present
+  ignore_errors: yes
+  with_items:
+    - mactex-no-gui
+  
+- include: asdf.yml
+- include: docker.yml
+# broken by summon
+# - include: dot-files.yml
+- include: elixir.yml
+- include: emacs.yml
+- include: syncthing.yml
+- include: vault.yml
+- include: zsh.yml
+
+

@@ -1,0 +1,30 @@
+---
+- name: check if asdf is installed
+  stat:
+    path: "/Users/{{ lookup('env', 'USER')}}/.asdf"
+  register: asdf
+  changed_when: not asdf.stat.exists
+
+- name: ASDF tasks
+  when: asdf.changed
+  block:
+  - name: Installing asdf.vm
+    git:
+      repo: https://github.com/asdf-vm/asdf.git
+      dest: /Users/{{ lookup('env', 'USER') }}/.asdf
+      version: v0.8.1
+
+  - name: "Install asdf plugins"
+    shell: |
+      source /Users/{{ lookup('env', 'USER') }}/.asdf/asdf.sh
+      asdf plugin-add {{ item }} || exit 0
+    with_items:
+      - rust
+      - elixir
+      - nodejs
+      - erlang
+
+  - name: Importing Node.js release team's OpenPGP keys
+    shell: >
+      bash -c
+      '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-previous-release-team-keyring'

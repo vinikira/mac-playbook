@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -ex
+
+GITHUB_DIR=~/git/github
+PLAYBOOK_DIR="$GITHUB_DIR/vinikira/mac-playbook"
+
+which brew 2>/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+which pip3 2>/dev/null || sudo easy_install pip3
+
+which ansible 2>/dev/null || python3 -m pip install --user ansible
+
+[ -d $GITHUB_DIR ] || mkdir -p $GITHUB_DIR
+
+[ -d $PLAYBOOK_DIR ] || git clone git@github.com:vinikira/mac-playbook.git $PLAYBOOK_DIR
+
+cd $PLAYBOOK_DIR
+
+read -r -p "Type the tag (empty for all): " tags
+
+_options=(--ask-become-pass)
+
+if [ -n "$tags" ]; then
+    _options+=(--tags "$tags")
+fi
+
+ansible-playbook playbook.yml "${_options[@]}"

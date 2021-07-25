@@ -1,0 +1,24 @@
+---
+- name: Brew taps
+  community.general.homebrew_tap:
+    name:
+      - homebrew/cask-fonts
+      - amar1729/formulae
+
+- name: Desktop Packages
+  community.general.homebrew:
+    name: '{{ item }}'
+  ignore_errors: yes
+  with_items:
+    - font-hack-nerd-font
+    - font-jetbrains-mono-nerd-font
+    - obs
+    - audacity
+    - browserpass
+
+- name: Configure browserpass for Chrome
+  shell: PREFIX=$(brew --prefix) make hosts-chrome-user -f "$(brew --prefix)/lib/browserpass/Makefile"
+
+- name: Install browserpass Chrome extension
+  shell: PREFIX=$(brew --prefix) make policies-chrome -f "$(brew --prefix)/lib/browserpass/Makefile"
+  become: true

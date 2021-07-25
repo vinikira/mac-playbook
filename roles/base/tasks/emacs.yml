@@ -1,0 +1,30 @@
+---
+- name: Added homebrew tap with pre-built emacs gcc release
+  community.general.homebrew_tap:
+    name: jimeh/emacs-builds
+
+- name: Install Emacs GCC package
+  community.general.homebrew_cask:
+    name: emacs-app-good
+    state: present
+  ignore_errors: true
+
+- name: Trust emacs
+  shell: spctl -vvv --assess --type exec /Applications/Emacs.app
+
+- name: Enable Emacs daemon
+  tags: emacs
+  block:
+    - name: copy plist file
+      copy:
+        src: '../files/gnu.emacs.daemon.plist'
+        dest: "/Users/{{ lookup('env', 'USER') }}/Library/LaunchAgents/"
+
+    - name: enalbe service
+      shell: launchctl load -w ~/Library/LaunchAgents/gnu.emacs.daemon.plist
+
+# broken by summon
+#- name: Summoning Emacs config
+#  shell: |
+#    'bash /Users/{{ lookup('env', 'USER') }}/.local/bin/summon.sh
+#    /Users/{{ lookup('env', 'USER') }}/git/github/vinikira/dot-files/common/emacs'
