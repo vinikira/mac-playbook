@@ -22,6 +22,7 @@
       - pgcli
       - cmake
       - ncspot
+      - libpq
     state: present
 
 - name: Cask Packages
