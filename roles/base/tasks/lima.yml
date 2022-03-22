@@ -1,7 +1,7 @@
 ---
-- name: Install docker package
-  tags: docker
+- name: Install lima vm and nerdctl
+  tags: container
   community.general.homebrew_cask:
-    name: docker
+    name: lima
     state: present
   ignore_errors: yes
