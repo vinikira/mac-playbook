@@ -10,13 +10,16 @@
     name: '{{ item }}'
   ignore_errors: yes
   with_items:
-    - font-hack-nerd-font
-    - font-jetbrains-mono-nerd-font
     - font-iosevka-nerd-font
+    - font-noto-sans
     - obs
     - audacity
     - browserpass
     - mpv
+    - firefox
+    - alacritty
+    - rectangle
+    - icanhazshortcut
 
 - name: Configure browserpass for Chrome
   shell: PREFIX=$(brew --prefix) make hosts-chrome-user -f "$(brew --prefix)/lib/browserpass/Makefile"
@@ -24,3 +27,6 @@
 - name: Install browserpass Chrome extension
   shell: PREFIX=$(brew --prefix) make policies-chrome -f "$(brew --prefix)/lib/browserpass/Makefile"
   become: true
+
+- name: Configure browserpass for Firefox
+  shell: PREFIX=$(brew --prefix) make hosts-firefox-user -f "$(brew --prefix)/lib/browserpass/Makefile"

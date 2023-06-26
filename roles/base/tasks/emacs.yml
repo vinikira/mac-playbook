@@ -5,7 +5,7 @@
 
 - name: Install Emacs GCC package
   community.general.homebrew_cask:
-    name: emacs-app-good
+    name: jimeh/emacs-builds/emacs-app-nightly-29
     state: present
   ignore_errors: true
 
@@ -23,8 +23,12 @@
     - name: enalbe service
       shell: launchctl load -w ~/Library/LaunchAgents/gnu.emacs.daemon.plist
 
-# broken by summon
-#- name: Summoning Emacs config
-#  shell: |
-#    'bash /Users/{{ lookup('env', 'USER') }}/.local/bin/summon.sh
-#    /Users/{{ lookup('env', 'USER') }}/git/github/vinikira/dot-files/common/emacs'
+- name: Linking Emacs config
+  shell: |
+   'cd /Users/{{ lookup('env', 'USER') }}/dot-files;
+    make dot-files workspace=common/emacs'
+
+- name: Making Emacs config
+  shell: |
+   'cd /Users/{{ lookup('env', 'USER') }}/.emacs.d;
+    make -k'

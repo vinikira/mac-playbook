@@ -1,7 +1,7 @@
 ---
-- name: Install lima vm and nerdctl
+- name: Install colima vm
   tags: container
   community.general.homebrew_cask:
-    name: lima
+    name: colima
     state: present
   ignore_errors: yes

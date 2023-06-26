@@ -5,16 +5,6 @@
     dest: /Users/{{ lookup('env', 'USER') }}/git/github/vinikira/dot-files
     update: no
 
-- name: Fetching Summon
-  git:
-    repo: https://gitlab.com/semente/summon
-    dest: /Users/{{ lookup('env', 'USER') }}/git/gitlab/semente/summon
-
-- name: Given access to summon
-  file:
-    path: /Users/{{ lookup('env', 'USER') }}/git/gitlab/semente/summon/summon.sh
-    mode: 0755
-
 - name: Make .local directories
   file:
     path: '{{ item }}'
@@ -23,14 +13,8 @@
     - /Users/{{ lookup('env', 'USER') }}/.local/bin
     - /Users/{{ lookup('env', 'USER') }}/.local/opt
 
-- name: Create link summon
-  file:
-    src: /Users/{{ lookup('env', 'USER') }}/git/gitlab/semente/summon/summon.sh
-    dest: /Users/{{ lookup('env', 'USER') }}/.local/bin/summon.sh
-    state: link
-
-- name: Summoning dot-files
-  shell: bash /Users/{{ lookup('env', 'USER') }}/.local/bin/summon.sh /Users/{{ lookup('env', 'USER') }}/git/github/vinikira/dot-files/common/{{ item }}
+- name: Linking dot-files
+  shell: cd /Users/{{ lookup('env', 'USER') }}/dot-files; make dotfiles workspace=common/{{ item }}
   with_items:
     - zsh
     - bin
