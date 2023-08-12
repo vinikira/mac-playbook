@@ -14,7 +14,6 @@
       - gpg
       - autoconf
       - openssl
-      - wxmac
       - jq
       - libxml2
       - cmake
@@ -33,11 +32,10 @@
   with_items:
     - mactex-no-gui
 
-- include: asdf.yml
-- include: docker.yml
-- include: dot-files.yml
-- include: elixir.yml
-- include: emacs.yml
-- include: syncthing.yml
-- include: vault.yml
-- include: zsh.yml
+- include_tasks: asdf.yml
+- include_tasks: colima.yml
+- include_tasks: dot-files.yml
+- include_tasks: emacs.yml
+- include_tasks: syncthing.yml
+- include_tasks: vault.yml
+- include_tasks: zsh.yml

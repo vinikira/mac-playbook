@@ -5,7 +5,7 @@
 
 - name: Install Emacs GCC package
   community.general.homebrew_cask:
-    name: jimeh/emacs-builds/emacs-app-nightly-29
+    name: jimeh/emacs-builds/emacs-app
     state: present
   ignore_errors: true
 
@@ -24,11 +24,13 @@
       shell: launchctl load -w ~/Library/LaunchAgents/gnu.emacs.daemon.plist
 
 - name: Linking Emacs config
-  shell: |
-   'cd /Users/{{ lookup('env', 'USER') }}/dot-files;
-    make dot-files workspace=common/emacs'
+  ignore_errors: true
+  shell: make dotfiles workspace=common/emacs
+  args:
+    chdir: /Users/{{ lookup('env', 'USER') }}/git/github.com/vinikira/dot-files
 
 - name: Making Emacs config
-  shell: |
-   'cd /Users/{{ lookup('env', 'USER') }}/.emacs.d;
-    make -k'
+  shell: make -k
+  args:
+    chdir: /Users/{{ lookup('env', 'USER') }}/.emacs.d
+  ignore_errors: true

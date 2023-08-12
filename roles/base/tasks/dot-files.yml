@@ -2,7 +2,7 @@
 - name: Fetching dot-files
   git:
     repo: git@github.com:vinikira/dot-files.git
-    dest: /Users/{{ lookup('env', 'USER') }}/git/github/vinikira/dot-files
+    dest: /Users/{{ lookup('env', 'USER') }}/git/github.com/vinikira/dot-files
     update: no
 
 - name: Make .local directories
@@ -14,7 +14,10 @@
     - /Users/{{ lookup('env', 'USER') }}/.local/opt
 
 - name: Linking dot-files
-  shell: cd /Users/{{ lookup('env', 'USER') }}/dot-files; make dotfiles workspace=common/{{ item }}
+  shell: make dotfiles workspace=common/{{ item }}
+  args:
+    chdir: /Users/{{ lookup('env', 'USER') }}/git/github.com/vinikira/dot-files
+  ignore_errors: true
   with_items:
     - zsh
     - bin

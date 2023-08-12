@@ -2,7 +2,7 @@
 
 set -ex
 
-GITHUB_DIR=~/git/github
+GITHUB_DIR=~/git/github.com
 PLAYBOOK_DIR="$GITHUB_DIR/vinikira/mac-playbook"
 
 which brew 2>/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

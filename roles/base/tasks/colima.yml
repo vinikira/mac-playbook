@@ -1,7 +1,7 @@
 ---
 - name: Install colima vm
   tags: container
-  community.general.homebrew_cask:
+  community.general.homebrew:
     name: colima
     state: present
   ignore_errors: yes
