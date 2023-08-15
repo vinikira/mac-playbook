@@ -4,4 +4,9 @@
   community.general.homebrew:
     name: colima
     state: present
-  ignore_errors: yes
+
+- name: Install Docker CLI
+  tags: container
+  community.general.homebrew:
+    name: docker
+    state: present
