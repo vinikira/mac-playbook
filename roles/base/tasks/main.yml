@@ -22,6 +22,8 @@
       - cmake
       - ncspot
       - libpq
+      - notmuch
+      - offlineimap
     state: present
 
 - name: Cask Packages
