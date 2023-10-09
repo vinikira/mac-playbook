@@ -20,6 +20,8 @@
     - alacritty
     - rectangle
     - icanhazshortcut
+    - gimp
+    - utm
 
 - name: Configure browserpass for Chrome
   shell: PREFIX=$(brew --prefix) make hosts-chrome-user -f "$(brew --prefix)/lib/browserpass/Makefile"
